@@ -1,0 +1,56 @@
+//File encoding 874
+
+ushort NumberOfRecords;
+ushort UNKNOW; // before s6 is region but hsreina say no x)
+uint VersionOfIff;
+
+FOR (NumberOfRecords)
+{
+	uint      Index;
+	uint      Active;
+	uint      TypeId;
+	string   Name;
+	byte    Level;
+	string   Icon;
+	byte    Flag1;
+	byte    Flag2;
+	byte    Flag3;
+	uint      Price;
+	uint      DiscountPrice;
+	uint      UsedPrice;
+	uint      FlagShop;
+	uint      Qnt_Tiki_Pts;
+	uint      Tiki_Pts;
+	ushort    Recyling_Pts;  //Mileage pouints
+	ushort    Bonus_Proba;
+	ushort    Recyling_Pts2;
+	ushort    Recyling_Pts3;
+	uint      Type_Tiki;
+	uint      Tiki_Pang;
+	uint      Active_Date;
+	string   Activate_Date; // size 16
+	string   End_Date;  // size 16
+	string   Model;  // size 40
+	string   Tex_01; // size 40
+	string   Tex_02; // size 40
+	string   Tex_03; // size 40
+	ushort    Power;
+	ushort    Control;
+	ushort    Accuracy;
+	ushort    Spin;
+	ushort    Curve;
+	byte    PowerSlot;
+	byte    ControlSlot;
+	byte    AccuracySlot;
+	byte    SpinSlot;
+	byte    CurveSlot;
+	byte    Unknow_1;
+	uint      RankS;
+	byte    RankS_PowerSlot;
+	byte    RankS_ControlSlot;
+	byte    RankS_AccuracySlot;
+	byte    RankS_SpinSlot;
+	byte    RankS_CurveSlot;
+	string   Additional_Tex; // size 40
+	string     Unknow_3; // size 3     
+}
