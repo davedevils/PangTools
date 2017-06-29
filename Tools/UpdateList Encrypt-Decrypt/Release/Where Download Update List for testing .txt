@@ -1,0 +1,3 @@
+USA :  http://py.cdn.patchgamerage.com/new/Service/S4_Patch/updatelist
+Thai : http://patch.pangya.in.th/patch_S4/updatelist
+Japan : http://dl.pangya.jp/pangya/season4/patch/updatelist
