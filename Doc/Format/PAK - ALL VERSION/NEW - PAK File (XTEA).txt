@@ -1,0 +1,35 @@
+//Structure
+
+-> begin file
+//ALL DATA
+{
+	ALL Data File(encrypt or not)
+}
+
+//TABLE of content
+{
+	char			LenFileName;
+	char			ModeCompression; // 0 - No compress , 2 Folder , 3 - Lz77 compress
+	unsigned int	Offset; // XTEA Data[0]
+	unsigned int	FileSize;
+	unsigned int	RealFileSize; // XTEA Data[1]
+	string			FileName; // size of LenFileName
+}
+
+//Footer Files - 9 Byte
+	unsigned int	ListOffset;
+	unsigned int	NumFiles;
+	char			Sign;
+
+-> end file
+
+// About Decrypt
+Offset and RealFileSize is encrypted BY XTEA - IN SAME TIME
+FileName is encrypted BY XTEA - SOLO
+
+// List Key i Know
+uint xtea_US_key[4] = { 66455465, 57629246, 17826484, 78315754 }; // 0x3F607A9, 0x36F5A3E, 0x11002B4, 0x4AB00EA
+uint xtea_JP_key[4] = { 34234324, 32423423, 45336224, 83272673 }; // 0x20A5FD4, 0x1EEBDFF, 0x2B3C6A0, 0x4F6A3E1
+uint xtea_TH_key[4] = { 84595515, 12254985, 72548314, 46875682 }; // 0x50AD33B, 0x0BAFF09, 0x452FFDA, 0x2CB4422
+uint xtea_EU_key[4] = { 32081624, 92374137, 64139451, 46772272 }; // 0x1E986D8, 0x5818479, 0x3D2B0BB, 0x2C9B030
+uint xtea_ID_key[4] = { 23334327, 21322395, 41884343, 93424468 }; // 0x1640DB7, 0x1455A9B, 0x27F1AB7, 0x5918B54

@@ -1,0 +1,25 @@
+//Structure
+
+-> begin file
+//ALL DATA
+{
+	ALL Data File(encrypt or not)
+}
+
+//TABLE of content
+{
+	char			LenFileName;
+	char			ModeCompression; // 0 - No compress , 2 Folder , 3 - Lz77 compress
+	unsigned int	Offset;
+	unsigned int	FileSize;
+	unsigned int	RealFileSize;
+	string			FileName; // size of LenFileName
+	char			Unknow5; 
+}
+
+//Footer Files - 9 Byte
+	unsigned int	ListOffset;
+	unsigned int	NumFiles;
+	char			Sign;
+
+-> end file
