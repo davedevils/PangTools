@@ -1,4 +1,4 @@
-// UpdateList_DE-Crypt.cpp : Defines the entry point for the console application.
+// Pangya Pak Extract.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -11,7 +11,7 @@ int main(int argc, char* argv[])
 
 	printf("-----------------------------------------------\n");
 	printf("|            Pangya Pak Extract/Create        |\n");
-	printf("|                   Version 1.0               |\n");
+	printf("|                   Version 1.1               |\n");
 	printf("-----------------------------------------------\n");
 	printf("Created by DaveDevil's - Special thanks to Seddi\n");
 	printf("-----------------------------------------------\n");
@@ -30,11 +30,11 @@ int main(int argc, char* argv[])
 		result = OpenPak(sFileName);
 		if (result == 0)
 		{
-			printf("The file has been Decrypted !\n");
+			printf("The file has been unpacked !\n");
 		}
 		else if (result == 1)
 		{
-			printf("Try other Key ...\n");
+			printf("This is not a valid pak file !\n");
 			
 		}
 		else if (result == 2)
@@ -121,7 +121,7 @@ int OpenPak(string filename)
 	if (Header.Sign != 0x12)
 	{
 		fclose(fOriginalFile);
-		return 2;
+		return 1;
 	}
 
 	//Go to Offset
@@ -303,6 +303,13 @@ int FindLangPak(uint Data0, uint Data1)
 
 	if (XTeaInfo[0] == 0)
 		return 4; // INDONESIA KEY
+
+	XTeaInfo[0] = Data0;
+	XTeaInfo[1] = Data1;
+	xtea_decipher(16, XTeaInfo, xtea_all[5]);
+
+	if (XTeaInfo[0] == 0)
+		return 5; // KOREAN KEY
 
 	//i don't know the key :(
 	return -1;

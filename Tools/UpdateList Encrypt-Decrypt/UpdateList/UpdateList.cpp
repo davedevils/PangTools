@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 
 	printf("-----------------------------------------------\n");
 	printf("|        Pangya UpdateList Encrypt/Decrypt    |\n");
-	printf("|                   Version 2.0               |\n");
+	printf("|                   Version 2.1               |\n");
 	printf("-----------------------------------------------\n");
 	printf("Created by DaveDevil's - Special thanks to HSReina\n");
 	printf("-----------------------------------------------\n");
@@ -27,14 +27,17 @@ int main(int argc, char* argv[])
 		sFileName = argv[1];
 	}
 
-	for (int i = 1; i < 4; i++)
+	for (int i = 1; i < 6; i++)
 	{
 		switch (i)
 		{
-			case 1: keyselected = keyusa; break;
-			case 2: keyselected = keythai; break;
-			case 3: keyselected = keyjapan; break;
-			default: keyselected = keyusa;
+			case 1: keyselected = xtea_US_key; break;
+			case 2: keyselected = xtea_TH_key; break;
+			case 3: keyselected = xtea_JP_key; break;
+			case 4: keyselected = xtea_EU_key; break;
+			case 5: keyselected = xtea_ID_key; break;
+			case 6: keyselected = xtea_KR_key; break;
+			default: keyselected = xtea_US_key;
 		}
 
 
@@ -107,17 +110,32 @@ int FileCryptDecrypt(string filename, uint key[4])
 		if (Data[0x4B] == 'T' && Data[0x4C] == 'H')
 		{
 			printf("Encrypt Key found : Thai ... \n");
-			key = keythai;
+			key = xtea_TH_key;
 		}
 		else if (Data[0x4B] == 'J' && Data[0x4C] == 'P')
 		{
 			printf("Encrypt Key found : Japan ... \n");
-			key = keyjapan;
+			key = xtea_JP_key;
 		}
 		else if (Data[0x4B] == 'G' && Data[0x4C] == 'B')
 		{
 			printf("Encrypt Key found : English ... \n");
-			key = keyusa;
+			key = xtea_US_key;
+		}
+		else if (Data[0x4B] == 'E' && Data[0x4C] == 'U')
+		{
+			printf("Encrypt Key found : Europe ... \n");
+			key = xtea_EU_key;
+		}
+		else if (Data[0x4B] == 'I' && Data[0x4C] == 'D')
+		{
+			printf("Encrypt Key found : Indonesia ... \n");
+			key = xtea_ID_key;
+		}
+		else if (Data[0x4B] == 'K' && Data[0x4C] == 'R')
+		{
+			printf("Encrypt Key found : Korean ... \n");
+			key = xtea_ID_key;
 		}
 		else
 		{
@@ -149,17 +167,29 @@ int FileCryptDecrypt(string filename, uint key[4])
 		//If Decrypt fail ...
 		if (i == 0 && DataFinal[0] != '<' && DataFinal[1] != '?' && encrypt == false)
 		{
-			if (key == keyusa)
+			if (key == xtea_US_key)
 			{
 				printf("Not English Updatelist... \n");
 			}
-			else if (key == keyjapan)
+			else if (key == xtea_JP_key)
 			{
 				printf("Not Japan Updatelist... \n");
 			}
-			else if (key == keythai)
+			else if (key == xtea_TH_key)
 			{
-				printf("Not Thai Updatelist... \n");
+				printf("Not Thailand Updatelist... \n");
+			}
+			else if (key == xtea_EU_key)
+			{
+				printf("Not Europe Updatelist... \n");
+			}
+			else if (key == xtea_ID_key)
+			{
+				printf("Not Indonesia Updatelist... \n");
+			}
+			else if (key == xtea_KR_key)
+			{
+				printf("Not Korean Updatelist... \n");
 			}
 
 			fOriginalFile.close();
@@ -186,18 +216,31 @@ int FileCryptDecrypt(string filename, uint key[4])
 		SaveFile.close();
 		ret = 0;
 
-		if (key == keyusa)
+		if (key == xtea_US_key)
 		{
 			printf("Is English Updatelist !\n");
 		}
-		else if (key == keyjapan)
+		else if (key == xtea_JP_key)
 		{
 			printf("Is Japan Updatelist !\n");
 		}
-		else if (key == keythai)
+		else if (key == xtea_TH_key)
 		{
-			printf("Is Thai Updatelist !\n");
+			printf("Is Thailand Updatelist !\n");
 		}
+		else if (key == xtea_EU_key)
+		{
+			printf("Is Europe Updatelist !\n");
+		}
+		else if (key == xtea_ID_key)
+		{
+			printf("Is Indonesia Updatelist !\n");
+		}
+		else if (key == xtea_KR_key)
+		{
+			printf("Is Korean Updatelist !\n");
+		}
+
 	}
 
 
