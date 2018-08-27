@@ -44,12 +44,23 @@ struct StructFile
 	char			Unknow5;
 };
 
-//List of Func
+//General PART
+string XOR_data(char * Data, int DataSize, int Type);
+int SaveToFile(const char * Filename, unsigned char * Data, uint DataSize);
+wstring s2ws(const std::string& str);
+string ws2s(const std::wstring& wstr);
+
+//Unpack PART
 int OpenPak(string filename);
 int FindLangPak(uint Data0, uint Data1);
-string XOR_data(char * Data, int DataSize, int Type);
-int Lz77_Decompress(char * Data, int DataSize, char * DataDst,  int Type);
-void xtea_encipher(unsigned int num_rounds, uint data[2], uint key[4]);
-void xtea_decipher(unsigned int num_rounds, uint data[2], uint key[4]);
+int Lz77_Decompress(unsigned char * Data, int DataSize, unsigned char * DataDst,  int Type);
+void xtea_decipher(uint num_rounds, uint data[2], uint key[4]);
+
+//Pack PART
+int CreatePak(uint EncryptType);
+void ListFile(vector<wstring> &FileList, vector<wstring> &FolderList);
+int Lz77_Compress(unsigned char * Data, int DataSize, unsigned char * DataDst);
+void xtea_encipher(uint num_rounds, uint data[2], uint key[4]);
+
 
 #endif

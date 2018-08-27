@@ -8,11 +8,18 @@
 #include "targetver.h"
 
 #include <windows.h>
+#include <algorithm>
+#include <iostream>
+#include <map>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
 #include <fstream>
+#include <vector>
+#include <array>
+#include <codecvt>
 
+#define DEBUG_MODE 0
 
 using namespace std;
 
