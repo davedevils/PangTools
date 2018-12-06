@@ -64,109 +64,99 @@ namespace UCC_converter_Tools
         public void ReadPangyaPicture(string filename)
         {
 
-            int width = 128;
-            int height = 128;
-
-            int xx = 0;
-            int yy = 0;
+            int width = 128, height = 128;
+            Bitmap flag = new Bitmap(width, height);
+            int num2 = 0;
+            long fileLength;
+            ushort x = 0, y = 0;
             int[] hexacolor;
-            int[] transcolor;
-            Color myRgbColor = new Color();
+            int[] transcolor = new int[4];
+            Color ColorPix = new Color();
 
-            FileStream fs = new FileStream("C:\\Windows\\Temp\\davedevils\\" + ActualFileSD + "\\" + filename, FileMode.Open);
+            string path = "C:\\Windows\\Temp\\davedevils\\" + ActualFileSD + "\\" + filename;
 
-            Bitmap flag = new Bitmap(128, 128);
+            FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.None);
 
             // SD Standard = 49152/65536 BYTE
             // SD 256x256  = 196608 BYTE
             //string size = fs.Length.ToString();
             //MessageBox.Show(size);
 
-            if (fs.Length > 65536 )
+            fileLength = fs.Length;
+            fs.Close();
+
+            if (fileLength > 65536 )
             {
-                flag = new Bitmap(256, 256);
                 width = 256;
                 height = 256;
+                flag = new Bitmap(width, height);
             }
             //short 
             //128x64
-            if (fs.Length < 30000)
+            if (fileLength < 30000)
             {
-                flag = new Bitmap(128, 64);
                 width = 128;
                 height = 64;
+                flag = new Bitmap(width, height);
             }
+            
 
-            transcolor = new int[4];
-            for (int i = 0; yy < height- 1 ; i += 8)
+            byte[] fileBytes = File.ReadAllBytes(path);
+            while (num2 < fileBytes.Length)
             {
-                int zz = 0;
+                int numwhile = 3;
+
+                if (isRChar == false)
+                    numwhile = 4;
+
                 hexacolor = new int[4];
-                if (isRChar == true)
+
+                for (int W = 0; W < numwhile; W++)
                 {
-                    while (zz < 3)
-                    {
-                        int z = fs.ReadByte();
-                        string s = z.ToString("X");
-                        if (s.Length < 2)
-                            s = "0" + s;
-                        hexacolor[zz] = int.Parse(s, System.Globalization.NumberStyles.HexNumber);
-                        zz++;
+                    hexacolor[W] = fileBytes[num2];
 
-                        if (hexacolor[zz] < 0)
-                            hexacolor[zz] = 0;
-                    }
+                    if (hexacolor[W] < 0)
+                        hexacolor[W] = 0;  
 
-                    if (AutoTransparancy == true && i == 0)
-                    {
-                        transcolor = hexacolor;
+                    if(hexacolor[W] > 255)
+                        hexacolor[W] = 255;
 
-                        myRgbColor = Color.FromArgb(0, hexacolor[2], hexacolor[1], hexacolor[0]);
-                    }
-                    else if (AutoTransparancy == true)
-                    {
-                        if (transcolor[0] == hexacolor[0] 
-                         && transcolor[1] == hexacolor[1]
-                         && transcolor[2] == hexacolor[2])
-                            myRgbColor = Color.FromArgb(0, hexacolor[2], hexacolor[1], hexacolor[0]);
-                        else
-                            myRgbColor = Color.FromArgb(255,hexacolor[2], hexacolor[1], hexacolor[0]);
-                    }
-                    else
-                    {
-                        myRgbColor = Color.FromArgb(255,hexacolor[2], hexacolor[1], hexacolor[0]);
-                    }
+                    num2 += 1;
+                }
+
+                
+                if (isRChar == false)
+                {
+                    ColorPix = Color.FromArgb(hexacolor[3], hexacolor[2], hexacolor[1], hexacolor[0]);
                 }
                 else
                 {
-                    while (zz < 4)
+                    if (AutoTransparancy == true && num2 < 4)
                     {
-                        int z = fs.ReadByte();
-                        string s = z.ToString("X");
-                        if (s.Length < 2)
-                            s = "0" + s;
-                        hexacolor[zz] = int.Parse(s, System.Globalization.NumberStyles.HexNumber);
-
-                        if (hexacolor[zz] < 0)
-                            hexacolor[zz] = 0;
-
-                        zz++;
-
+                        ColorPix = Color.FromArgb(0, hexacolor[2], hexacolor[1], hexacolor[0]);
+                        transcolor = hexacolor;
                     }
-                    myRgbColor = Color.FromArgb(hexacolor[3], hexacolor[2], hexacolor[1], hexacolor[0]);
+                    else if (AutoTransparancy == true)
+                    {
+                        if (transcolor == hexacolor)
+                            ColorPix = Color.FromArgb(0, hexacolor[2], hexacolor[1], hexacolor[0]);
+                        else
+                            ColorPix = Color.FromArgb(255, hexacolor[2], hexacolor[1], hexacolor[0]);
+                    }
+                    else
+                    {
+                        ColorPix = Color.FromArgb(255, hexacolor[2], hexacolor[1], hexacolor[0]);
+                    }
                 }
 
-                flag.SetPixel(xx, yy, myRgbColor);
+                flag.SetPixel(x, y, ColorPix);
 
-                  if (xx == width-1)
-                  {
-	                yy++;
-	                xx = 0;
-                  }
-                  else
-                  {
-	                xx++;
-                  }
+                x++;
+                if (x == width)
+                {
+                    y++;
+                    x = 0;
+                }
             }
 
             Graphics flagGraphics = Graphics.FromImage(flag);
@@ -186,7 +176,6 @@ namespace UCC_converter_Tools
                 //picicon.Image = flag;
                 IconImg = flag;
             }
-                fs.Close();
         }
 
         public void SavePangyaPicture(string filename , Bitmap Img)
@@ -195,46 +184,24 @@ namespace UCC_converter_Tools
             int width = Img.Width;
             int height = Img.Height;
 
-            int xx = 0;
-            int yy = 0;
+            int x = 0;
+            int y = 0;
             FileStream fs = new FileStream("C:\\Windows\\Temp\\davedevils\\" + ActualFileSD + "\\" + filename, FileMode.Create, FileAccess.Write);
-
-            for (int i = 0; yy < height - 1; i += 8)
+            while (y < height)
             {
-                if (isRChar == true)
-                {
-                    //Color.FromArgb(hexacolor[2], hexacolor[1], hexacolor[0]);
-                    // Blue
-                    // Green
-                    // Red
-                    Color pixelColor = Img.GetPixel(xx, yy);
-                    fs.WriteByte(pixelColor.B);
-                    fs.WriteByte(pixelColor.G);
-                    fs.WriteByte(pixelColor.R);
+                Color pix = Img.GetPixel(x, y);
+                fs.WriteByte(pix.B);
+                fs.WriteByte(pix.G);
+                fs.WriteByte(pix.R);
 
-                }
-                else
-                {
-                    //Color.FromArgb(hexacolor[3], hexacolor[2], hexacolor[1], hexacolor[0]);
-                    // Blue
-                    // Green
-                    // Red
-                    // Alpha
-                    Color pixelColor = Img.GetPixel(xx, yy);
-                    fs.WriteByte(pixelColor.B);
-                    fs.WriteByte(pixelColor.G);
-                    fs.WriteByte(pixelColor.R);
-                    fs.WriteByte(pixelColor.A);
-                }
+                if (isRChar == false)
+                    fs.WriteByte(pix.A);
 
-                if (xx == width - 1)
+                x++;
+                if (x == width)
                 {
-                    yy++;
-                    xx = 0;
-                }
-                else
-                {
-                    xx++;
+                    x = 0;
+                    y++;
                 }
             }
 
@@ -295,6 +262,10 @@ namespace UCC_converter_Tools
             
             SavePangyaPicture("front" , FrontImg);
             SavePangyaPicture("back" , BackImg);
+
+            //isRChar = true;
+            //SavePangyaPicture("icon", BackImg);
+
             ICSharpCode.SharpZipLib.Zip.FastZip z = new ICSharpCode.SharpZipLib.Zip.FastZip();
             z.CreateEmptyDirectories = false;
             z.CreateZip( ActualFileSD + ".jpg", "C:\\Windows\\Temp\\davedevils\\" + ActualFileSD, true, "");
