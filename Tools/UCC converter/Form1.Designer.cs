@@ -46,12 +46,16 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.picicon = new System.Windows.Forms.PictureBox();
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picfront)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.picback)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picicon)).BeginInit();
             this.SuspendLayout();
             // 
             // notifyIcon1
@@ -63,9 +67,9 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 341);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 311);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(556, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(642, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -78,7 +82,7 @@
             // 
             // picfront
             // 
-            this.picfront.Location = new System.Drawing.Point(6, 27);
+            this.picfront.Location = new System.Drawing.Point(5, 14);
             this.picfront.Name = "picfront";
             this.picfront.Size = new System.Drawing.Size(256, 256);
             this.picfront.TabIndex = 1;
@@ -86,7 +90,7 @@
             // 
             // picback
             // 
-            this.picback.Location = new System.Drawing.Point(14, 27);
+            this.picback.Location = new System.Drawing.Point(4, 14);
             this.picback.Name = "picback";
             this.picback.Size = new System.Drawing.Size(256, 256);
             this.picback.TabIndex = 2;
@@ -103,7 +107,7 @@
             this.toolStripMenuItem2});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(556, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(642, 24);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -149,9 +153,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.picback);
-            this.groupBox1.Location = new System.Drawing.Point(274, 27);
+            this.groupBox1.Location = new System.Drawing.Point(269, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(282, 293);
+            this.groupBox1.Size = new System.Drawing.Size(267, 283);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Back View";
@@ -161,7 +165,7 @@
             this.groupBox2.Controls.Add(this.picfront);
             this.groupBox2.Location = new System.Drawing.Point(0, 27);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(268, 293);
+            this.groupBox2.Size = new System.Drawing.Size(268, 283);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Front View";
@@ -169,41 +173,68 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(375, 321);
+            this.checkBox1.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(541, 174);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(181, 17);
+            this.checkBox1.Size = new System.Drawing.Size(95, 28);
             this.checkBox1.TabIndex = 3;
-            this.checkBox1.Text = "Use New Decrypt (for buggy SD)";
+            this.checkBox1.Text = "Use New Decrypt";
+            this.checkBox1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // checkBox2
             // 
             this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(0, 322);
+            this.checkBox2.CheckAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.checkBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.checkBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox2.Location = new System.Drawing.Point(539, 244);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(116, 17);
+            this.checkBox2.Size = new System.Drawing.Size(101, 28);
             this.checkBox2.TabIndex = 6;
             this.checkBox2.Text = "Auto-Transparancy";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.picicon);
+            this.groupBox3.Location = new System.Drawing.Point(554, 27);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(71, 104);
+            this.groupBox3.TabIndex = 7;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Icon";
+            // 
+            // picicon
+            // 
+            this.picicon.Location = new System.Drawing.Point(3, 14);
+            this.picicon.Name = "picicon";
+            this.picicon.Size = new System.Drawing.Size(64, 84);
+            this.picicon.TabIndex = 2;
+            this.picicon.TabStop = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(556, 363);
-            this.Controls.Add(this.checkBox2);
+            this.ClientSize = new System.Drawing.Size(642, 333);
             this.Controls.Add(this.checkBox1);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(564, 390);
-            this.MinimumSize = new System.Drawing.Size(564, 390);
+            this.MaximumSize = new System.Drawing.Size(650, 360);
+            this.MinimumSize = new System.Drawing.Size(650, 360);
             this.Name = "Form1";
             this.Text = "UCC Converter Tools";
             this.statusStrip1.ResumeLayout(false);
@@ -214,6 +245,8 @@
             this.menuStrip1.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.picicon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,6 +270,8 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.PictureBox picicon;
     }
 }
 

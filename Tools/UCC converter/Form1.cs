@@ -52,7 +52,11 @@ namespace UCC_converter_Tools
                     ExtractZipFile(openFileDialog1.FileName, "" , "C:\\Windows\\Temp\\davedevils\\" + ActualFileSD);
                     ReadPangyaPicture("front");
                     ReadPangyaPicture("back");
-                    //ReadPangyaPicture("icon");
+
+                    bool exists = System.IO.File.Exists("C:\\Windows\\Temp\\davedevils\\" + ActualFileSD + "\\icon");
+
+                    if (exists)
+                        ReadPangyaPicture("icon");
                 }
                 catch (Exception ex)
                 {
@@ -99,14 +103,29 @@ namespace UCC_converter_Tools
                 height = 64;
                 flag = new Bitmap(width, height);
             }
-            
+
+            if (filename == "icon")
+            {
+                width = 64;
+                height = 84;
+                flag = new Bitmap(width, height);
+            }
 
             byte[] fileBytes = File.ReadAllBytes(path);
+
+            if (filename == "icon")
+            {
+                //int math = fileBytes.Length / 4;
+                //MessageBox.Show("Icon num :" + math);
+            }
+
+
+
             while (num2 < fileBytes.Length)
             {
                 int numwhile = 3;
 
-                if (isRChar == false)
+                if (isRChar == false || filename == "icon")
                     numwhile = 4;
 
                 hexacolor = new int[4];
@@ -125,7 +144,7 @@ namespace UCC_converter_Tools
                 }
 
                 
-                if (isRChar == false)
+                if (isRChar == false || filename == "icon")
                 {
                     ColorPix = Color.FromArgb(hexacolor[3], hexacolor[2], hexacolor[1], hexacolor[0]);
                 }
@@ -138,7 +157,9 @@ namespace UCC_converter_Tools
                     }
                     else if (AutoTransparancy == true)
                     {
-                        if (transcolor == hexacolor)
+                        if (transcolor[0] == hexacolor[0]
+                         && transcolor[1] == hexacolor[1]
+                         && transcolor[2] == hexacolor[2])
                             ColorPix = Color.FromArgb(0, hexacolor[2], hexacolor[1], hexacolor[0]);
                         else
                             ColorPix = Color.FromArgb(255, hexacolor[2], hexacolor[1], hexacolor[0]);
@@ -173,7 +194,7 @@ namespace UCC_converter_Tools
             }
             else if (filename == "icon")
             {
-                //picicon.Image = flag;
+                picicon.Image = flag;
                 IconImg = flag;
             }
         }
@@ -194,7 +215,7 @@ namespace UCC_converter_Tools
                 fs.WriteByte(pix.G);
                 fs.WriteByte(pix.R);
 
-                if (isRChar == false)
+                if (isRChar == false || filename == "icon")
                     fs.WriteByte(pix.A);
 
                 x++;
@@ -263,10 +284,12 @@ namespace UCC_converter_Tools
             SavePangyaPicture("front" , FrontImg);
             SavePangyaPicture("back" , BackImg);
 
-            //isRChar = true;
-            //SavePangyaPicture("icon", BackImg);
+            bool existsicon = System.IO.File.Exists("C:\\Windows\\Temp\\davedevils\\" + ActualFileSD + "\\icon");
 
-            ICSharpCode.SharpZipLib.Zip.FastZip z = new ICSharpCode.SharpZipLib.Zip.FastZip();
+            if (existsicon)
+               SavePangyaPicture("icon", IconImg);
+
+                ICSharpCode.SharpZipLib.Zip.FastZip z = new ICSharpCode.SharpZipLib.Zip.FastZip();
             z.CreateEmptyDirectories = false;
             z.CreateZip( ActualFileSD + ".jpg", "C:\\Windows\\Temp\\davedevils\\" + ActualFileSD, true, "");
 
@@ -290,11 +313,19 @@ namespace UCC_converter_Tools
             frontsave.Save(ActualFileSD + "\\" + "front.png", ImageFormat.Png);
             backsave.Save(ActualFileSD + "\\" + "back.png", ImageFormat.Png);
 
-
             frontsave.Dispose();
             backsave.Dispose();
 
-            MessageBox.Show("Saved in folder :" + ActualFileSD);
+            bool existsicon = System.IO.File.Exists("C:\\Windows\\Temp\\davedevils\\" + ActualFileSD + "\\icon");
+
+            if (existsicon)
+            {
+                Bitmap iconsave = new Bitmap(IconImg);
+                iconsave.Save(ActualFileSD + "\\" + "icon.png", ImageFormat.Png);
+                iconsave.Dispose();
+            }
+
+          MessageBox.Show("Saved in folder :" + ActualFileSD);
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
@@ -320,6 +351,18 @@ namespace UCC_converter_Tools
 
                 Back.Dispose();
                 Front.Dispose();
+
+                bool exists = File.Exists(ActualFileSD + "\\" + "icon.png");
+
+                if (exists == true)
+                {
+                    Image Icon = Image.FromFile(ActualFileSD + "\\" + "icon.png");
+                    Bitmap iconload = new Bitmap(Icon);
+                    picicon.Image = iconload;
+                    IconImg = new Bitmap(picicon.Image);
+                    Icon.Dispose();
+                }
+
                 MessageBox.Show("File have been imported");
             }
         }
